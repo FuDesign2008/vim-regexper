@@ -3,4 +3,4 @@ if &cp || (exists('g:loaded_regexper') && g:loaded_regexper)
 endif
 let g:loaded_regexper = 1
 
-command! -nargs=0 RegexperExecute :call regexper#Execute()
+command! -nargs=1 RegexperExecute :call regexper#Execute(<q-args>)
