@@ -1,7 +1,7 @@
 let s:save_cpo = &cpo | set cpo&vim
 "Variable {{{
-let s:baseUrl      = 'http://vim-regexper.herokuapp.com/'
-"let s:baseUrl     = 'http://vim-regexper.herokuapp.com/parse/'
+let s:baseUrl      = 'http://vim-regexper.herokuapp.com'
+"let s:baseUrl     = 'http://vim-regexper.herokuapp.com/parse'
 let s:basePath     = expand('<sfile>:p:h:h')
 let s:jsonFilePath = s:basePath.'/html/js/regexper.json'
 let s:htmlFilePath = s:basePath.'/html/index.html'
@@ -17,16 +17,15 @@ function! regexper#Execute(args) "{{{
         return
     endif
     "Write file
-    "TODO:herokuサーバへのリクエス卜へ変更
     "TODO:regexperのローカライズ
     "TODO:Windows環境対応
     "call system(join(['echo "',
     "\    s:JSON.decode(s:HTTP.post(s:baseUrl, {
-    "\        'regexp_input': '[a-zA-Z0-9-_.]@[a-zA-Z0-9_-]',}).content),
+    "\        'regexp_input': s:HTTP.encodeURI(a:args),}).content),
     "\    '" > ', s:jsonFilePath,],''))
     "Open browser
     "TODO:Windows環境対応
-    call system(g:regexper#OpenCmd.' '.s:baseUrl.'#'.a:args,)
+    call system(g:regexper#OpenCmd.' '.s:baseUrl.'#'.s:HTTP.encodeURI(a:args),)
     "call system(g:regexper#OpenCmd.' '.s:htmlFilePath,)
     return
 endfunction
