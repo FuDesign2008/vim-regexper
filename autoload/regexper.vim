@@ -1,6 +1,6 @@
 let s:save_cpo = &cpo|set cpo&vim
 "Variable {{{
-let s:baseUrl            = 'http://0.0.0.0:5000'
+let g:regexper#BaseUrl   = ! exists('g:regexper#BaseUrl') ? 'http://vim-regexper.herokuapp.com/' : g:regexper#BaseUrl
 let s:regexperAppPathFlg = ! exists('s:regexperAppPathFlg') ? 0 : s:regexperAppPathFlg
 let s:V                  = vital#of('regexper')
 let s:HTTP               = s:V.import('Web.HTTP')
@@ -14,25 +14,21 @@ function! regexper#Execute(args) "{{{
     endif
     "Open browser
     if exists('g:regexper#OpenCmd')
-        silent! call s:system(g:regexper#OpenCmd.' "'.s:baseUrl.'#'.s:HTTP.encodeURI(a:args).'"')
+        silent! call s:system(g:regexper#OpenCmd.' "'.g:regexper#BaseUrl.'#'.s:HTTP.encodeURI(a:args).'"')
     else
-        silent! call s:open_browser(s:baseUrl.'#'.s:HTTP.encodeURI(a:args))
+        silent! call s:open_browser(g:regexper#BaseUrl.'#'.s:HTTP.encodeURI(a:args))
     endif
     return
 endfunction
 "}}}
 function! s:kick_application() "{{{
-    if ! exists('g:regexper#AppPath')
-        echohl ErrorMsg | echomsg "vim-regexper: Check 'g:regexper#AppPath'." | echohl None
-        return 0
-    endif
-    if s:regexperAppPathFlg == 0
+    if exists('g:regexper#AppPath') && s:regexperAppPathFlg == 0
         let a:cwdPath = getcwd()
         execute 'lcd' fnameescape(g:regexper#AppPath)
         silent! call s:system('nohup foreman start > /dev/null 2>&1 &')
-        "Lazy suppot
-        sleep 10ms
         execute 'lcd' fnameescape(a:cwdPath)
+        let g:regexper#BaseUrl = (g:regexper#BaseUrl == 'http://vim-regexper.herokuapp.com/') ? 'http://0.0.0.0:5000' : g:regexper#BaseUrl
+        sleep 10ms "Maybe lazy suppot
         let s:regexperAppPathFlg = 1
     endif
     return 1
