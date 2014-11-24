@@ -1,25 +1,46 @@
 let s:save_cpo = &cpo|set cpo&vim
 "Variable {{{
-let s:baseUrl = 'http://vim-regexper.herokuapp.com'
-let s:V = vital#of('regexper')
-let s:HTTP = s:V.import('Web.HTTP')
+let s:baseUrl            = 'http://0.0.0.0:5000'
+let s:regexperAppPathFlg = ! exists('s:regexperAppPathFlg') ? 0 : s:regexperAppPathFlg
+let s:V                  = vital#of('regexper')
+let s:HTTP               = s:V.import('Web.HTTP')
 "}}}
 "TODO:Windows environment
 "TODO:localize
 function! regexper#Execute(args) "{{{
+    "Kick regexper
+    if ! s:kick_application()
+        return
+    endif
     "Open browser
     if exists('g:regexper#OpenCmd')
-        silent! call s:system(g:regexper#OpenCmd.' '.s:baseUrl.'#'.s:HTTP.encodeURI(a:args))
+        silent! call s:system(g:regexper#OpenCmd.' "'.s:baseUrl.'#'.s:HTTP.encodeURI(a:args).'"')
     else
         silent! call s:open_browser(s:baseUrl.'#'.s:HTTP.encodeURI(a:args))
     endif
     return
 endfunction
 "}}}
+function! s:kick_application() "{{{
+    if ! exists('g:regexper#AppPath')
+        echohl ErrorMsg | echomsg "vim-regexper: Check 'g:regexper#AppPath'." | echohl None
+        return 0
+    endif
+    if s:regexperAppPathFlg == 0
+        let a:cwdPath = getcwd()
+        execute 'lcd' fnameescape(g:regexper#AppPath)
+        silent! call s:system('nohup foreman start > /dev/null 2>&1 &')
+        "Lazy suppot
+        sleep 10ms
+        execute 'lcd' fnameescape(a:cwdPath)
+        let s:regexperAppPathFlg = 1
+    endif
+    return 1
+endfunction
+"}}}
 function! s:system(cmd) "{{{
     try
-        let result = vimproc#system(a:cmd)
-        return result
+        return vimproc#system(a:cmd)
     catch /E117.*/
         return system(a:cmd)
     endtry
@@ -29,7 +50,7 @@ function! s:open_browser(path) "{{{
     try
         call OpenBrowser(a:path)
     catch /E117.*/
-        echohl ErrorMsg | echomsg "vim-regexper: Check 'g:regexperOpenCmd' or open_browser." | echohl None
+        echohl ErrorMsg | echomsg "vim-regexper: Check 'g:regexper#OpenCmd' or open_browser." | echohl None
     endtry
 endfunction
 "}}}
