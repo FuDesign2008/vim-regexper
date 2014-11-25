@@ -1,0 +1,96 @@
+*regexper.txt* Starting regexper, and show browser.
+
+Author:  KazuakiM <twitter@NanohaAsOnKai>
+License: Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported.
+
+==============================================================================
+CONTENTS					*regexper-contents*
+
+INTRODUCTION			|regexper-introduction|
+INTERFACE			|regexper-interface|
+  VARIABLES			  |regexper-variables|
+  COMMANDS			  |regexper-commands|
+  FUNCTIONS			  |regexper-functions|
+USAGE				|regexper-usage|
+  BASE				  |regexper-base|
+  LOCAL-APPLICATION		  |regexper-local-application|
+  ASYNC-REQUEST			  |regexper-async-request|
+TROUBLE				|regexper-trouble|
+
+
+==============================================================================
+INTRODUCTION					*regexper-introduction*
+
+This Vim plugin is inspired at regexper.
+
+==============================================================================
+INTERFACE					*regexper-interface*
+
+------------------------------------------------------------------------------
+VARIABLES					*regexper-variables*
+
+g:regexper#BaseUrl = {value}			*g:regexper#BaseUrl*
+	You can edit original request URL.
+
+g:regexper#OpenCmd = {value}			*g:regexper#OpenCmd*
+	Browser is kicked at command.
+
+g:regexper#AppPath = {value}			*g:regexper#AppPath*
+	Set installed regexper directory path.
+
+------------------------------------------------------------------------------
+COMMANDS					*regexper-commands*
+
+:RegexperExecute				*:RegexperExecute*
+	Execute |regexper#Execute()| program with parameter 1st = regexp.
+
+------------------------------------------------------------------------------
+FUNCTIONS					*regexper-functions*
+
+regexper#Execute({value})			*regexper#Execute()*
+	Only 1st execute regexper program.
+	And open browse with request url and regexp({value}).
+
+==============================================================================
+USAGE						*regexper-usage*
+
+------------------------------------------------------------------------------
+BASE						*regexper-base*
+
+Base is simple.I maked herokuapp request version.
+>
+	NeoBundle 'KazuakiM/vim-regexper'
+<
+
+------------------------------------------------------------------------------
+LOCAL-APPLICATION				*regexper-local-application*
+
+You can request local application.
+Please "git clone git@github.com:javallone/regexper.git".
+>
+	NeoBundle 'KazuakiM/vim-regexper'
+	let g:regexper#AppPath = '/path/to/path/regexper'
+<
+
+------------------------------------------------------------------------------
+ASYNC-REQUEST					*regexper-async-request*
+
+This plugin is supported at vimproc.
+>
+	NeoBundle 'Shougo/vimproc'
+	NeoBundle 'KazuakiM/vim-regexper'
+<
+
+==============================================================================
+TROUBLE			    	|regexper-trouble|
+
+If don't work, You can use open-browser.vim.
+>
+	NeoBundle 'tyru/open-browser.vim'
+	NeoBundle 'KazuakiM/vim-regexper'
+<
+
+If all else fails, please issues me.
+
+==============================================================================
+vim:tw=78:ts=8:ft=help:norl

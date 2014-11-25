@@ -6,7 +6,6 @@ let s:V                  = vital#of('regexper')
 let s:HTTP               = s:V.import('Web.HTTP')
 "}}}
 "TODO:Windows environment
-"TODO:localize
 function! regexper#Execute(args) "{{{
     "Kick regexper
     if ! s:kick_application()
@@ -27,8 +26,8 @@ function! s:kick_application() "{{{
         execute 'lcd' fnameescape(g:regexper#AppPath)
         silent! call s:system('nohup foreman start > /dev/null 2>&1 &')
         execute 'lcd' fnameescape(a:cwdPath)
-        let g:regexper#BaseUrl = (g:regexper#BaseUrl == 'http://vim-regexper.herokuapp.com/') ? 'http://0.0.0.0:5000' : g:regexper#BaseUrl
-        sleep 10ms "Maybe lazy suppot
+        let g:regexper#BaseUrl = (g:regexper#BaseUrl ==# 'http://vim-regexper.herokuapp.com/') ? 'http://0.0.0.0:5000' : g:regexper#BaseUrl
+        sleep 3000ms "Maybe lazy suppot
         let s:regexperAppPathFlg = 1
     endif
     return 1
