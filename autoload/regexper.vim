@@ -15,7 +15,7 @@ function! regexper#Execute(args) "{{{
     if exists('g:regexper#OpenCmd')
         silent! call s:system(g:regexper#OpenCmd.' "'.g:regexper#BaseUrl.'#'.s:HTTP.encodeURI(a:args).'"')
     else
-        silent! call s:open_browser(g:regexper#BaseUrl.'#'.s:HTTP.encodeURI(a:args))
+        call s:open_browser(g:regexper#BaseUrl.'#'.s:HTTP.encodeURI(a:args))
     endif
     return
 endfunction
