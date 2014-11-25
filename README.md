@@ -2,10 +2,19 @@
 This Vim plugin is inspired at [regexper](http://regexper.com/).
 
 ##Installation
-###Sample setting.
-Sample setting is using [NeoBundle](https://github.com/Shougo/neobundle.vim).
+Sample setting is using [NeoBundle](https://github.com/Shougo/neobundle.vim).  
+Base is simple.I maked herokuapp request version.
 ```vim
 NeoBundle 'KazuakiM/vim-regexper'
+```
+Open browser method.  
+1st command base.Exsample)Mac
+```vim
+let g:regexper#OpenCmd = 'open -a firefox'
+```
+Or 2nd use Vim plugin 'open-browser.vim'.
+```vim
+NeoBundle 'tyru/open-browser.vim'
 ```
 
 ###Usage
