@@ -19,7 +19,7 @@ USAGE				|regexper-usage|
 ==============================================================================
 INTRODUCTION					*regexper-introduction*
 
-This Vim plugin is inspired at regexper.
+This Vim plugin is inspired at regexper(http://regexper.com/).
 
 ==============================================================================
 INTERFACE					*regexper-interface*
@@ -55,10 +55,10 @@ USAGE						*regexper-usage*
 ------------------------------------------------------------------------------
 BASE						*regexper-base*
 
-This sample setting is request version that I maked herokuapp.
+This sample setting is heroku application request version.
 You should install this plugin and set open browser.
 
-Plugin is installed.
+Install this plugin.
 >
 	NeoBundle 'KazuakiM/vim-regexper'
 <
@@ -68,7 +68,7 @@ Use OS command base.Ex)Mac
 >
 	let g:regexper#OpenCmd = 'open -a firefox'
 <
-Or Use Vim plugin 'open-browser.vim'.
+Or use Vim plugin 'open-browser.vim'.
 >
 	NeoBundle 'tyru/open-browser.vim'
 <
@@ -77,16 +77,16 @@ Or Use Vim plugin 'open-browser.vim'.
 LOCAL-APPLICATION				*regexper-local-application*
 
 You can request local application.
-Please "git clone git@github.com:javallone/regexper.git".
+Please install regexper(git@github.com:javallone/regexper.git).
 >
 	NeoBundle 'KazuakiM/vim-regexper'
-	let g:regexper#AppPath = '/path/to/path/regexper'
+	let g:regexper#AppPath = '/file/to/path/regexper'
 <
 
 ------------------------------------------------------------------------------
 ASYNC-REQUEST					*regexper-async-request*
 
-This plugin is supported at vimproc.
+Vimproc is supported.
 >
 	NeoBundle 'Shougo/vimproc'
 	NeoBundle 'KazuakiM/vim-regexper'
