@@ -22,10 +22,10 @@ endfunction
 "}}}
 function! s:kick_application() "{{{
     if exists('g:regexper#AppPath') && s:regexperAppPathFlg == 0
-        let a:cwdPath = getcwd()
+        let l:cwdPath = getcwd()
         execute 'lcd' fnameescape(g:regexper#AppPath)
         silent! call s:system('nohup foreman start > /dev/null 2>&1 &')
-        execute 'lcd' fnameescape(a:cwdPath)
+        execute 'lcd' fnameescape(l:cwdPath)
         let g:regexper#BaseUrl = (g:regexper#BaseUrl ==# 'http://vim-regexper.herokuapp.com/') ? 'http://0.0.0.0:5000' : g:regexper#BaseUrl
         sleep 3000ms "Maybe lazy suppot
         let s:regexperAppPathFlg = 1
